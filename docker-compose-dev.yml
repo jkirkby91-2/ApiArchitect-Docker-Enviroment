@@ -4,7 +4,7 @@ services:
 
   aa-rp:
     volumes:
-      - /srv/apiarchitect/docker/data/rp/www:/srv/www
+      - /srv/ApiArchitect/docker/data/rp/www:/srv/www
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -12,7 +12,7 @@ services:
 
   aa-api:
     volumes:
-      - /srv/apiarchitect/www:/srv/www
+      - /srv/ApiArchitect/www:/srv/www
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -20,7 +20,7 @@ services:
 
   aa-api-fpm:
     volumes:
-      - /srv/apiarchitect/www:/srv/www
+      - /srv/ApiArchitect/www:/srv/www
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -28,13 +28,13 @@ services:
 
   aa-memcached:
     volumes:
-      - /srv/apiarchitect/docker/data/memcached/www:/srv/www    
+      - /srv/ApiArchitect/docker/data/memcached/www:/srv/www    
     environment:
       ENVIRONMENT: dev
 
   aa-sql:
     volumes:
-      - /srv/apiarchitect/docker/data/sql/www:/srv/www
+      - /srv/ApiArchitect/docker/data/sql/www:/srv/www
     environment:
       MYSQL_ROOT_PASSWORD: £!RSdf3fd33!(32d3oij3u2hdu3
       MYSQL_PASSWORD: £!DFdsfdsf43f3!(sadasdsaDASd43r5435
