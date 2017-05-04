@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  dev-common-env:
+    extends:
+      file: "base-common.yml"
+      service: common-env
+    env_file: 
+      - env/dev-common.env
+    environment:
+      ENVIRONMENT: dev

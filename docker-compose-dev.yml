@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  aa-rp:
+    volumes:
+      - /srv/apiarchitect/docker/data/rp/www:/srv/www
+    env_file:
+      - confs/shared/env/dev-common.env
+    environment:
+      ENVIRONMENT: dev
+
+  aa-api:
+    volumes:
+      - /srv/apiarchitect/www:/srv/www
+    env_file:
+      - confs/shared/env/dev-common.env
+    environment:
+      ENVIRONMENT: dev   
+
+  aa-api-fpm:
+    volumes:
+      - /srv/apiarchitect/www:/srv/www
+    env_file:
+      - confs/shared/env/dev-common.env
+    environment:
+      ENVIRONMENT: dev
+
+  aa-memcached:
+    volumes:
+      - /srv/apiarchitect/docker/data/memcached/www:/srv/www    
+    environment:
+      ENVIRONMENT: dev
+
+  aa-sql:
+    volumes:
+      - /srv/apiarchitect/docker/data/sql/www:/srv/www
+    environment:
+      MYSQL_ROOT_PASSWORD: £!RSdf3fd33!(32d3oij3u2hdu3
+      MYSQL_PASSWORD: £!DFdsfdsf43f3!(sadasdsaDASd43r5435
+      MYSQL_DATABASE: aa-db
+      MYSQL_USER: aa-dba
+      ENVIRONMENT: dev        

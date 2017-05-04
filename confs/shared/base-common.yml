@@ -1,0 +1,18 @@
+version: '3'
+
+#docker-compose doesnt support extends yet !!boo!! leaving in here for reference
+
+services:
+  common-env:
+    restart: always
+    env_file: 
+      - env/common.env
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true
+#    tty: true

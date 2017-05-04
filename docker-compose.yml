@@ -1,0 +1,127 @@
+version: '3'
+
+# maintainer me@jameskirkby.com
+networks:
+  frontend:
+  api:
+  cache:
+  backend:
+  database:
+
+services:
+
+   #web sockets reverse proxy
+  aa-rp:
+    image: jkirkby91/docker-nginx-naxsi:latest
+    container_name: "aa-rp"
+    hostname: "aa-rp"
+    env_file: 
+      - confs/shared/env/common.env
+    networks:
+      - frontend   
+      - api
+    depends_on:          
+      - "aa-api"
+    expose:
+      - 1025
+    ports:
+      - 443:1025
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true     
+  
+  #api fpm server
+  aa-api-fpm:
+    image: jkirkby91/docker-php7-fpm:latest
+    container_name: "aa-api-fpm"
+    hostname:  "qg-api-fpm"
+    env_file: 
+      - confs/shared/env/common.env
+    depends_on: 
+      - "aa-memcached"
+      - "aa-sql"
+    networks:
+      - backend
+      - cache
+      - database
+    expose:
+      - 9000
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true
+
+  #api app server
+  aa-api:
+    image: jkirkby91/docker-nginx-naxsi:latest
+    container_name: "aa-api"
+    hostname:  "aa-api"
+    env_file: 
+      - confs/shared/env/common.env
+    depends_on: 
+      - "aa-api-fpm"
+    networks:
+      - api
+      - backend 
+    expose:
+      - 1025    
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true          
+
+  #memcached server
+  aa-memcached:
+    image: jkirkby91/docker-memcached:latest 
+    container_name: "aa-memcached"
+    hostname: "aa-memcached"
+    networks:
+      - cache
+    expose:
+      - 11211
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true            
+
+  #database server
+  aa-sql:
+    image: mariadb:latest
+    container_name: "aa-sql"
+    hostname: "aa-sql"      
+    env_file: 
+      - confs/shared/env/common.env
+    networks:
+      - database
+    expose:
+      - 3306
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    read_only: false
+    shm_size: 64M
+    stdin_open: true     
