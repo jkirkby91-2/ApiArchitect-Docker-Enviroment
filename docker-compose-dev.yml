@@ -4,7 +4,7 @@ services:
 
   aa-rp:
     volumes:
-      - /srv/ApiArchitect/docker/data/rp/www:/srv/www
+      - /srv/ApiArchitect/docker/confs/reverse-proxy/nginx:/srv/confs/nginx
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -12,7 +12,8 @@ services:
 
   aa-api:
     volumes:
-      - /srv/ApiArchitect/www:/srv/www
+      - /srv/ApiArchitect:/srv/www
+      - /srv/ApiArchitect/docker/confs/nginx-api/nginx:/srv/confs/nginx      
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -20,7 +21,7 @@ services:
 
   aa-api-fpm:
     volumes:
-      - /srv/ApiArchitect/www:/srv/www
+      - /srv/ApiArchitect:/srv/www
     env_file:
       - confs/shared/env/dev-common.env
     environment:
