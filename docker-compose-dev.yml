@@ -5,6 +5,7 @@ services:
   aa-rp:
     volumes:
       - /srv/ApiArchitect/docker/confs/reverse-proxy/nginx:/srv/confs/nginx
+      - /srv/ApiArchitect/docker/data/ssl:/srv/ssl      
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -13,7 +14,8 @@ services:
   aa-api:
     volumes:
       - /srv/ApiArchitect:/srv/www
-      - /srv/ApiArchitect/docker/confs/nginx-api/nginx:/srv/confs/nginx      
+      - /srv/ApiArchitect/docker/confs/nginx-api/nginx:/srv/confs/nginx
+      - /srv/ApiArchitect/docker/data/ssl:/srv/ssl
     env_file:
       - confs/shared/env/dev-common.env
     environment:
@@ -29,7 +31,7 @@ services:
 
   aa-memcached:
     volumes:
-      - /srv/ApiArchitect/docker/data/memcached/www:/srv/www    
+      - /srv/ApiArchitect/docker/data/memcached/www:/srv/www
     environment:
       ENVIRONMENT: dev
 

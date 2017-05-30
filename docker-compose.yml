@@ -40,7 +40,7 @@ services:
   aa-api-fpm:
     image: jkirkby91/docker-php7-fpm:latest
     container_name: "aa-api-fpm"
-    hostname:  "qg-api-fpm"
+    hostname:  "aa-api-fpm"
     env_file: 
       - confs/shared/env/common.env
     depends_on: 
